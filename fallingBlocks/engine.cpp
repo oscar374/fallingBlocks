@@ -1,6 +1,11 @@
-#include "gameWindow.h"
+#include "engine.h"
 
-GameWindow::GameWindow(const Settings& settings) {
+#include "settings.h"
+
+Engine::Engine() : m_isRunning(false) {
+    
+	std::cout << "Initializing engine..." << "\n";
+
     window = SDL_CreateWindow(
         "game instance",
         settings.windowWidth,
@@ -22,22 +27,26 @@ GameWindow::GameWindow(const Settings& settings) {
         std::cout << "Failed to initialize renderer" << "\n";
         return;
     }
-
-    std::cout << "game is running correctly" << "\n";
-    m_isRunning = true;
-
-	float gravityStrength = 0.1f;
-    physics = PhysicsSystem(Vector2(settings.windowWidth, settings.windowHeight), gravityStrength);
-
-    run();
 }
 
-void GameWindow::run() {
-    world.addGameObject(GameObject("player", Vector2(500, 100), Vector2(100, 100), Color(255, 0, 0, 255), 0.05f));
+void Engine::run() {
+    m_isRunning = true;
 
+    float gravityStrength = settings.physicsGravityStrength;
+    physics = PhysicsSystem(Vector2(settings.windowWidth, settings.windowHeight), gravityStrength);
+    ObstacleSpawner oSpawner = ObstacleSpawner(world);
+	obstacleSpawner = &oSpawner;
+
+	Uint64 lastTime = SDL_GetTicksNS();
     while (m_isRunning) {
+        //deltatime
+        Uint64 currentTime = SDL_GetTicksNS();
+        float deltaTime = (currentTime - lastTime) / 1e9f;
+        lastTime = currentTime;
+        //deltatime
+
         handleEvents();
-        update();
+        update(deltaTime);
         render();
     }
 
@@ -46,7 +55,7 @@ void GameWindow::run() {
     SDL_Quit();
 }
 
-void GameWindow::handleEvents() {
+void Engine::handleEvents() {
     SDL_Event event;
 
     while (SDL_PollEvent(&event)) {
@@ -56,27 +65,24 @@ void GameWindow::handleEvents() {
     }
 }
 
-void GameWindow::update() {
-    physics.update(world.getAllGameObjects(), 0.1f);
+void Engine::update(const float& deltaTime) {
+    physics.update(world.getAllGameObjects(), deltaTime);
+	obstacleSpawner->update(deltaTime);
 }
 
-void GameWindow::render() {
+void Engine::render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
     for (const GameObject& obj : world.getAllGameObjects()) {
-
         SDL_FRect toDisplay = {
             static_cast<int>(obj.getPosition().x),
             static_cast<int>(obj.getPosition().y),
             static_cast<int>(obj.getSize().x),
             static_cast<int>(obj.getSize().y)
         };
-
         Color col = obj.getColor();
-
         SDL_SetRenderDrawColor(renderer, col.r, col.g, col.b, col.a);
-
         SDL_RenderFillRect(renderer, &toDisplay);
     }
 

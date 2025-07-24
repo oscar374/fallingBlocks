@@ -12,5 +12,5 @@ public:
 	void update(std::vector<GameObject>& gameobjects, float deltaTime);
 private:
 	Vector2 m_windowSize;
-	float m_gravityStrength = 1;
+	float m_gravityStrength;
 };
