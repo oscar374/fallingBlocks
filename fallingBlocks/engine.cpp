@@ -1,6 +1,6 @@
-#include "gameWindow.h"
+#include "engine.h"
 
-GameWindow::GameWindow(const Settings& settings) {
+Engine::Engine(const Settings& settings) {
     window = SDL_CreateWindow(
         "game instance",
         settings.windowWidth,
@@ -32,7 +32,7 @@ GameWindow::GameWindow(const Settings& settings) {
     run();
 }
 
-void GameWindow::run() {
+void Engine::run() {
     for (int i = 0; i < 30; i++) {
         world.addGameObject(GameObject("Block", Vector2(rand() % 1000, rand() % 500), Vector2(30, 30), Color(255, 0, 0, 255), 0.05f));
     }
@@ -55,7 +55,7 @@ void GameWindow::run() {
     SDL_Quit();
 }
 
-void GameWindow::handleEvents() {
+void Engine::handleEvents() {
     SDL_Event event;
 
     while (SDL_PollEvent(&event)) {
@@ -65,11 +65,11 @@ void GameWindow::handleEvents() {
     }
 }
 
-void GameWindow::update(const float& deltatime) {
+void Engine::update(const float& deltatime) {
     physics.update(world.getAllGameObjects(), deltatime);
 }
 
-void GameWindow::render() {
+void Engine::render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 

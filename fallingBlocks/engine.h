@@ -11,12 +11,12 @@
 #include <SDL3/SDL.h>
 #include <vector>
 
-class GameWindow {
+class Engine {
 public:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 
-	GameWindow(const Settings& settings);
+	Engine(const Settings& settings);
 private:
 	bool m_isRunning = false;
 

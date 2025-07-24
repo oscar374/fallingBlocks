@@ -27,7 +27,7 @@
     <ClInclude Include="gameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gameWindow.h">
+    <ClInclude Include="engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="physicsSystem.h">
@@ -47,7 +47,7 @@
     <ClCompile Include="gameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gameWindow.cpp">
+    <ClCompile Include="engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">

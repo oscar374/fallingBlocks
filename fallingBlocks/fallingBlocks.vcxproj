@@ -130,7 +130,7 @@
     <ClInclude Include="enums.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
-    <ClInclude Include="gameWindow.h" />
+    <ClInclude Include="engine.h" />
     <ClInclude Include="physicsSystem.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="world.h" />
@@ -138,7 +138,7 @@
   <ItemGroup>
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameObject.cpp" />
-    <ClCompile Include="gameWindow.cpp" />
+    <ClCompile Include="engine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="physicsSystem.cpp" />
     <ClCompile Include="Vector2.h" />
