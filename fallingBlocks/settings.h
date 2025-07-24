@@ -8,4 +8,6 @@ struct Settings {
 
 	const uint32_t windowWidth = 1000;
 	const uint32_t windowHeight = 500;
+
+	float physicsGravityStrength = 500;
 };

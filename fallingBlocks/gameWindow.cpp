@@ -26,18 +26,27 @@ GameWindow::GameWindow(const Settings& settings) {
     std::cout << "game is running correctly" << "\n";
     m_isRunning = true;
 
-	float gravityStrength = 0.1f;
+	float gravityStrength = settings.physicsGravityStrength;
     physics = PhysicsSystem(Vector2(settings.windowWidth, settings.windowHeight), gravityStrength);
 
     run();
 }
 
 void GameWindow::run() {
-    world.addGameObject(GameObject("player", Vector2(500, 100), Vector2(100, 100), Color(255, 0, 0, 255), 0.05f));
+    for (int i = 0; i < 30; i++) {
+        world.addGameObject(GameObject("Block", Vector2(rand() % 1000, rand() % 500), Vector2(30, 30), Color(255, 0, 0, 255), 0.05f));
+    }
 
+	Uint64 lastTime = SDL_GetTicksNS();
     while (m_isRunning) {
+        //deltatime
+        Uint64 currentTime = SDL_GetTicksNS();
+        float deltaTime = (currentTime - lastTime) / 1e9f;
+        lastTime = currentTime;
+        //deltatime
+
         handleEvents();
-        update();
+        update(deltaTime);
         render();
     }
 
@@ -56,8 +65,8 @@ void GameWindow::handleEvents() {
     }
 }
 
-void GameWindow::update() {
-    physics.update(world.getAllGameObjects(), 0.1f);
+void GameWindow::update(const float& deltatime) {
+    physics.update(world.getAllGameObjects(), deltatime);
 }
 
 void GameWindow::render() {
@@ -65,18 +74,14 @@ void GameWindow::render() {
     SDL_RenderClear(renderer);
 
     for (const GameObject& obj : world.getAllGameObjects()) {
-
         SDL_FRect toDisplay = {
             static_cast<int>(obj.getPosition().x),
             static_cast<int>(obj.getPosition().y),
             static_cast<int>(obj.getSize().x),
             static_cast<int>(obj.getSize().y)
         };
-
         Color col = obj.getColor();
-
         SDL_SetRenderDrawColor(renderer, col.r, col.g, col.b, col.a);
-
         SDL_RenderFillRect(renderer, &toDisplay);
     }
 

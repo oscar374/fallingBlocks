@@ -25,6 +25,6 @@ private:
 
 	void run();
 	void handleEvents();
-	void update();
+	void update(const float& deltatime);
 	void render();
 };
