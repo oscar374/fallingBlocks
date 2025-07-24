@@ -22,7 +22,9 @@ void PhysicsSystem::update(std::vector<GameObject>& gameobjects, float deltaTime
 			object.setVelocity(Vector2(object.getVelocity().x, object.getVelocity().y + m_gravityStrength * deltaTime));
 		}
 		else {
-			object.setVelocity(Vector2(0, 0));
+			if (object.getVelocity().y > 0.0f) {
+				object.setVelocity(Vector2(object.getVelocity().x, 0));
+			}
 		}
 
 		object.setPosition(Vector2(object.getPosition().x + object.getVelocity().x * deltaTime, object.getPosition().y + object.getVelocity().y * deltaTime));
