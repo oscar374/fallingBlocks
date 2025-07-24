@@ -1,6 +1,11 @@
 #include "engine.h"
 
-Engine::Engine(const Settings& settings) {
+#include "settings.h"
+
+Engine::Engine() : m_isRunning(false) {
+    
+	std::cout << "Initializing engine..." << "\n";
+
     window = SDL_CreateWindow(
         "game instance",
         settings.windowWidth,
@@ -22,20 +27,15 @@ Engine::Engine(const Settings& settings) {
         std::cout << "Failed to initialize renderer" << "\n";
         return;
     }
-
-    std::cout << "game is running correctly" << "\n";
-    m_isRunning = true;
-
-	float gravityStrength = settings.physicsGravityStrength;
-    physics = PhysicsSystem(Vector2(settings.windowWidth, settings.windowHeight), gravityStrength);
-
-    run();
 }
 
 void Engine::run() {
-    for (int i = 0; i < 30; i++) {
-        world.addGameObject(GameObject("Block", Vector2(rand() % 1000, rand() % 500), Vector2(30, 30), Color(255, 0, 0, 255), 0.05f));
-    }
+    m_isRunning = true;
+
+    float gravityStrength = settings.physicsGravityStrength;
+    physics = PhysicsSystem(Vector2(settings.windowWidth, settings.windowHeight), gravityStrength);
+    ObstacleSpawner oSpawner = ObstacleSpawner(world);
+	obstacleSpawner = &oSpawner;
 
 	Uint64 lastTime = SDL_GetTicksNS();
     while (m_isRunning) {
@@ -65,8 +65,9 @@ void Engine::handleEvents() {
     }
 }
 
-void Engine::update(const float& deltatime) {
-    physics.update(world.getAllGameObjects(), deltatime);
+void Engine::update(const float& deltaTime) {
+    physics.update(world.getAllGameObjects(), deltaTime);
+	obstacleSpawner->update(deltaTime);
 }
 
 void Engine::render() {

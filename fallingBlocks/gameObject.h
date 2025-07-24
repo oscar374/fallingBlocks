@@ -16,16 +16,16 @@ public:
 		bool autoMass = true
 	);
 
-	Vector2 getPosition() const;
-	Vector2 getSize() const;
-	float getMass() const;
-	Color getColor() const;
-	Vector2 getVelocity() const;
+	std::string getName() const { return m_name; }
+	Vector2 getPosition() const { return m_position; }
+	Vector2 getSize() const { return m_size; }
+	float getMass() const { return m_mass; }
+	Color getColor() const { return m_color; }
+	Vector2 getVelocity() { return m_velocity; }
 
 	void setPosition(const Vector2& newPosition);
 	void setSize(const Vector2& newSize);
 	void setVelocity(const Vector2& newVelocity);
-	std::string getName() const;
 
 	bool isFalling() const;
 

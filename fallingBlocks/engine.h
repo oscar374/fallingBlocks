@@ -6,6 +6,7 @@
 #include "Vector2.h"
 #include "color.h"
 #include "physicsSystem.h"
+#include "obstacleSpawner.h"
 
 #include <iostream>
 #include <SDL3/SDL.h>
@@ -13,17 +14,18 @@
 
 class Engine {
 public:
+	Engine();
+	void run();
+
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-
-	Engine(const Settings& settings);
 private:
 	bool m_isRunning = false;
 
 	World world;
 	PhysicsSystem physics = PhysicsSystem(Vector2(0, 0), 0);
+	ObstacleSpawner* obstacleSpawner;
 
-	void run();
 	void handleEvents();
 	void update(const float& deltatime);
 	void render();

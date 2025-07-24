@@ -5,8 +5,6 @@
 #include <iostream>
 
 void Game::startGame() {
-	Engine window(settings);
-
-	std::cout << "Game has started: " << "\n";
-	std::cout << "difficulty: " << settings.difficulty << "\n";
+	Engine engine;
+	engine.run();
 }

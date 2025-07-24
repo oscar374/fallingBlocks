@@ -131,6 +131,7 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="engine.h" />
+    <ClInclude Include="obstacleSpawner.h" />
     <ClInclude Include="physicsSystem.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="world.h" />
@@ -140,6 +141,7 @@
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="obstacleSpawner.cpp" />
     <ClCompile Include="physicsSystem.cpp" />
     <ClCompile Include="Vector2.h" />
     <ClCompile Include="world.cpp" />
