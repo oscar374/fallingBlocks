@@ -12,6 +12,7 @@
 #include <iostream>
 #include <SDL3/SDL.h>
 #include <vector>
+#include <memory>
 
 class Engine {
 public:
@@ -26,7 +27,7 @@ private:
 	World world;
 	PhysicsSystem physics = PhysicsSystem(Vector2(0, 0), 0);
 	ObstacleSpawner* obstacleSpawner;
-	Player* player;
+	std::shared_ptr<Player> player;
 
 	void handleEvents();
 	void update(const float& deltatime);
