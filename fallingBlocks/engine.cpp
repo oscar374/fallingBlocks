@@ -37,6 +37,10 @@ void Engine::run() {
     ObstacleSpawner oSpawner = ObstacleSpawner(world);
 	obstacleSpawner = &oSpawner;
 
+    Player p = Player("Player", Vector2(300, 300), Vector2(30, 60), Color(0, 0, 255, 0), 1, false);
+    player = &p;
+	world.addGameObject(p);
+
 	Uint64 lastTime = SDL_GetTicksNS();
     while (m_isRunning) {
         //deltatime
@@ -44,7 +48,7 @@ void Engine::run() {
         float deltaTime = (currentTime - lastTime) / 1e9f;
         lastTime = currentTime;
         //deltatime
-
+		std::cout << "player velocity: " << player->getVelocity().y << "\n";
         handleEvents();
         update(deltaTime);
         render();
@@ -62,6 +66,13 @@ void Engine::handleEvents() {
         if (event.type == SDL_EVENT_QUIT) {
             m_isRunning = false;
         }
+
+        if(event.type = SDL_EVENT_KEY_DOWN) {
+            if (event.key.key == SDLK_KP_SPACE) {
+                player->Jump();
+
+            }
+		}
     }
 }
 

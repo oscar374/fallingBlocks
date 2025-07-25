@@ -7,6 +7,7 @@
 #include "color.h"
 #include "physicsSystem.h"
 #include "obstacleSpawner.h"
+#include "player.h"
 
 #include <iostream>
 #include <SDL3/SDL.h>
@@ -25,6 +26,7 @@ private:
 	World world;
 	PhysicsSystem physics = PhysicsSystem(Vector2(0, 0), 0);
 	ObstacleSpawner* obstacleSpawner;
+	Player* player;
 
 	void handleEvents();
 	void update(const float& deltatime);
