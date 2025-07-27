@@ -1,33 +1,33 @@
 #include "PhysicsSystem.h"
 #include "settings.h"
 #include <iostream>
-void PhysicsSystem::update(std::vector<GameObject>& gameobjects, float deltaTime) {
+void PhysicsSystem::update(std::vector<std::shared_ptr<GameObject>> gameobjects, float deltaTime) {
 
-	for (GameObject& object : gameobjects) {
+	for (auto& object : gameobjects) {
 		bool isColliding = false;
 
-		if (!(object.getPosition().y < 500 - object.getSize().y)) isColliding = true;   //ground check
+		if (!(object->getPosition().y < settings.windowHeight - object->getSize().y)) isColliding = true;   //ground check
 		
-		for (GameObject& collider : gameobjects) {  //other objects collision check                           
-			if (&object == &collider) continue;
-			if (collider.getPosition().x + collider.getSize().x > object.getPosition().x &&
-				collider.getPosition().x < object.getPosition().x + object.getSize().x &&
-				collider.getPosition().y + collider.getSize().y > object.getPosition().y &&
-				collider.getPosition().y < object.getPosition().y + object.getSize().y) {
+		for (auto& collider : gameobjects) {  //other objects collision check                           
+			if (object == collider) continue;
+			if (collider->getPosition().x + collider->getSize().x > object->getPosition().x &&
+				collider->getPosition().x < object->getPosition().x + object->getSize().x &&
+				collider->getPosition().y + collider->getSize().y > object->getPosition().y &&
+				collider->getPosition().y < object->getPosition().y + object->getSize().y) {
 				isColliding = true;
 			}
 		}
 
 		if (!isColliding) {
-			object.setVelocity(Vector2(object.getVelocity().x, object.getVelocity().y + m_gravityStrength * deltaTime));
+			object->setVelocity(Vector2(object->getVelocity().x, object->getVelocity().y + m_gravityStrength * deltaTime));
 		}
 		else {
-			if (object.getVelocity().y > 0.0f) {
-				object.setVelocity(Vector2(object.getVelocity().x, 0));
+			if (object->getVelocity().y > 0.0f) {
+				object->setVelocity(Vector2(object->getVelocity().x, 0));
 			}
 		}
 
-		object.setPosition(Vector2(object.getPosition().x + object.getVelocity().x * deltaTime, object.getPosition().y + object.getVelocity().y * deltaTime));
+		object->setPosition(Vector2(object->getPosition().x + object->getVelocity().x * deltaTime, object->getPosition().y + object->getVelocity().y * deltaTime));
 	}
 }
 

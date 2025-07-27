@@ -24,7 +24,10 @@ void ObstacleSpawner::spawnObstacle() {
 
 	Vector2 position = Vector2(randomFloat(0.0f, settings.windowWidth - obstacleWidth), 0.0f);
 
-	m_world.addGameObject(GameObject("obstacle", position, size, Color(255, 0, 0, 0), 1, false));
+	std::shared_ptr<GameObject> obstacle = std::make_shared<GameObject>("obstacle", position, size, Color(255, 0, 0, 0), 1, false);
+	m_world.addGameObject(obstacle);
+
+
 }
 
 float ObstacleSpawner::randomFloat(float min, float max) {

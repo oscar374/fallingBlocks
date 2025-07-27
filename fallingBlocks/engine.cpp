@@ -37,6 +37,10 @@ void Engine::run() {
     ObstacleSpawner oSpawner = ObstacleSpawner(world);
 	obstacleSpawner = &oSpawner;
 
+    std::shared_ptr<Player> p = std::make_shared<Player>("Player", Vector2(300, 300), Vector2(30, 60), Color(0, 0, 255, 0), 5, false);
+    player = p;
+	world.addGameObject(player);
+
 	Uint64 lastTime = SDL_GetTicksNS();
     while (m_isRunning) {
         //deltatime
@@ -62,6 +66,12 @@ void Engine::handleEvents() {
         if (event.type == SDL_EVENT_QUIT) {
             m_isRunning = false;
         }
+
+        else if(event.type == SDL_EVENT_KEY_DOWN) {
+            if (event.key.key == SDLK_W) {
+                player->Jump();
+            }
+		}
     }
 }
 
@@ -74,14 +84,14 @@ void Engine::render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
-    for (const GameObject& obj : world.getAllGameObjects()) {
+    for (const auto& obj : world.getAllGameObjects()) {
         SDL_FRect toDisplay = {
-            static_cast<int>(obj.getPosition().x),
-            static_cast<int>(obj.getPosition().y),
-            static_cast<int>(obj.getSize().x),
-            static_cast<int>(obj.getSize().y)
+            static_cast<int>(obj->getPosition().x),
+            static_cast<int>(obj->getPosition().y),
+            static_cast<int>(obj->getSize().x),
+            static_cast<int>(obj->getSize().y)
         };
-        Color col = obj.getColor();
+        Color col = obj->getColor();
         SDL_SetRenderDrawColor(renderer, col.r, col.g, col.b, col.a);
         SDL_RenderFillRect(renderer, &toDisplay);
     }

@@ -26,6 +26,7 @@ public:
 	void setPosition(const Vector2& newPosition);
 	void setSize(const Vector2& newSize);
 	void setVelocity(const Vector2& newVelocity);
+	void setGrounded(bool grounded);
 
 	bool isFalling() const;
 
@@ -38,6 +39,7 @@ protected:
 	Vector2 m_size;
 	Color m_color;
 	float m_mass;
+	bool m_grounded;
 
 	Vector2 m_velocity;
 

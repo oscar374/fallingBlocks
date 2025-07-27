@@ -26,6 +26,10 @@ void GameObject::setVelocity(const Vector2& newVelocity) {
 	m_velocity = newVelocity;
 }
 
+void GameObject::setGrounded(bool grounded) {
+	m_grounded = grounded;
+}
+
 
 void GameObject::calculateMass() {
 
