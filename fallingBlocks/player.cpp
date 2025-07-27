@@ -1,5 +1,7 @@
 #include "Player.h"
 
+#include <iostream>
+
 Player::Player(
     const std::string& name,
     Vector2 position,
@@ -13,5 +15,5 @@ Player::Player(
 }
 
 void Player::Jump() {
-    this->setVelocity(Vector2(getVelocity().x, m_jumpStrength));
-}
+    this->setVelocity(Vector2(getVelocity().x, -m_jumpForce));
+} 

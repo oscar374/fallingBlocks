@@ -1,6 +1,7 @@
 #pragma once
 
 #include "gameObject.h"
+#include "settings.h"
 
 class Player : public GameObject {
 public:
@@ -15,6 +16,6 @@ public:
 
 	void Jump();
 private:
-	const float m_jumpStrength = 1000;
+	const float m_jumpForce = 700;
 	const float m_movementSpeed = 500;
 };

@@ -37,7 +37,7 @@ void Engine::run() {
     ObstacleSpawner oSpawner = ObstacleSpawner(world);
 	obstacleSpawner = &oSpawner;
 
-    std::shared_ptr<Player> p = std::make_shared<Player>("Player", Vector2(300, 300), Vector2(30, 60), Color(0, 0, 255, 0), 1, false);
+    std::shared_ptr<Player> p = std::make_shared<Player>("Player", Vector2(300, 300), Vector2(30, 60), Color(0, 0, 255, 0), 5, false);
     player = p;
 	world.addGameObject(player);
 
@@ -48,7 +48,7 @@ void Engine::run() {
         float deltaTime = (currentTime - lastTime) / 1e9f;
         lastTime = currentTime;
         //deltatime
-		std::cout << "player velocity: " << player->getVelocity().y << "\n";
+
         handleEvents();
         update(deltaTime);
         render();
@@ -67,8 +67,8 @@ void Engine::handleEvents() {
             m_isRunning = false;
         }
 
-        if(event.type = SDL_EVENT_KEY_DOWN) {
-            if (event.key.key == SDLK_KP_SPACE) {
+        else if(event.type == SDL_EVENT_KEY_DOWN) {
+            if (event.key.key == SDLK_W) {
                 player->Jump();
             }
 		}

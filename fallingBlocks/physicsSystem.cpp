@@ -6,10 +6,10 @@ void PhysicsSystem::update(std::vector<std::shared_ptr<GameObject>> gameobjects,
 	for (auto& object : gameobjects) {
 		bool isColliding = false;
 
-		if (!(object->getPosition().y < 500 - object->getSize().y)) isColliding = true;   //ground check
+		if (!(object->getPosition().y < settings.windowHeight - object->getSize().y)) isColliding = true;   //ground check
 		
 		for (auto& collider : gameobjects) {  //other objects collision check                           
-			if (&object == &collider) continue;
+			if (object == collider) continue;
 			if (collider->getPosition().x + collider->getSize().x > object->getPosition().x &&
 				collider->getPosition().x < object->getPosition().x + object->getSize().x &&
 				collider->getPosition().y + collider->getSize().y > object->getPosition().y &&
