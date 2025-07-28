@@ -1,6 +1,7 @@
 #pragma once
 
 #include "world.h"
+#include "settings.h"
 
 class ObstacleSpawner {
 public:
@@ -16,6 +17,6 @@ private:
 	World& m_world;
 
 	float m_difficultyMultiplier = 1.0f;
-	float m_rate = 0.8f;
+	float m_rate = settings.obstaclesSpawningRate;
 	float m_timer = 0.0f;
 };
