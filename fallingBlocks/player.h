@@ -15,7 +15,10 @@ public:
 	);
 
 	void Jump();
+	void Move(bool direction, float deltaTime);
 private:
-	const float m_jumpForce = 700;
-	const float m_movementSpeed = 500;
+	const float m_jumpForce = settings.jumpStrength;
+	const float m_movementSpeed = settings.moveSpeed;
+
+	int m_doubleJumpProgress = 0;
 };

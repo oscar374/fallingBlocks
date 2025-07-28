@@ -49,7 +49,7 @@ void Engine::run() {
         lastTime = currentTime;
         //deltatime
 
-        handleEvents();
+        handleEvents(deltaTime);
         update(deltaTime);
         render();
     }
@@ -59,19 +59,26 @@ void Engine::run() {
     SDL_Quit();
 }
 
-void Engine::handleEvents() {
+void Engine::handleEvents(const float& deltaTime) {
     SDL_Event event;
-
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_EVENT_QUIT) {
             m_isRunning = false;
         }
 
         else if(event.type == SDL_EVENT_KEY_DOWN) {
-            if (event.key.key == SDLK_W) {
+            if (event.key.key == SDLK_W || event.key.key == SDLK_UP) {
                 player->Jump();
             }
 		}
+    }
+
+    const bool* keyboardState = SDL_GetKeyboardState(NULL);
+    if (keyboardState[SDL_SCANCODE_A]) {
+        player->Move(0, deltaTime);
+    }
+    if (keyboardState[SDL_SCANCODE_D]) {
+        player->Move(1, deltaTime);
     }
 }
 

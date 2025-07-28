@@ -29,7 +29,7 @@ private:
 	ObstacleSpawner* obstacleSpawner;
 	std::shared_ptr<Player> player;
 
-	void handleEvents();
+	void handleEvents(const float& deltaTime);
 	void update(const float& deltatime);
 	void render();
 };
